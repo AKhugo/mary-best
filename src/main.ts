@@ -61,7 +61,7 @@ let orbAnimations = startOrbAnimations();
 
 // ─── Fullpage Navigator ────────────────────────────────────────────────────────
 
-const CHAPTER_ORDER: ChapterId[] = ["intro", "p1", "p2", "p3", "final"];
+const CHAPTER_ORDER: ChapterId[] = ["intro", "p1", "p2", "p3", "p4", "final"];
 let currentIndex = 0;
 let isAnimating = false;
 let answerOpen = false;
