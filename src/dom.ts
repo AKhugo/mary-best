@@ -147,6 +147,8 @@ function buildContentStack(): {
   const p2Block     = createRevealBlock("p2", createParagraphContent(storyContent.paragraphs[1]));
   const p3Block     = createRevealBlock("p3", createParagraphContent(storyContent.paragraphs[2]));
   const p4Block     = createRevealBlock("p4", createParagraphContent(storyContent.paragraphs[3]));
+  const p5Block     = createRevealBlock("p5", createParagraphContent(storyContent.paragraphs[4]));
+  const p6Block     = createRevealBlock("p6", createParagraphContent(storyContent.paragraphs[5]));
   const finalBlock  = createRevealBlock("final", createFinalContent());
   const answerBlock = createRevealBlock("answer", createAnswerContent(), false);
 
@@ -156,6 +158,8 @@ function buildContentStack(): {
     p2Block.wrapper,
     p3Block.wrapper,
     p4Block.wrapper,
+    p5Block.wrapper,
+    p6Block.wrapper,
     finalBlock.wrapper,
     answerBlock.wrapper
   );
@@ -170,6 +174,8 @@ function buildContentStack(): {
     ["p2",     p2Block],
     ["p3",     p3Block],
     ["p4",     p4Block],
+    ["p5",     p5Block],
+    ["p6",     p6Block],
     ["final",  finalBlock],
     ["answer", answerBlock],
   ]);
