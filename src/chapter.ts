@@ -28,16 +28,16 @@ export class ProgressObserver implements IChapterObserver {
   }
 
   onChapterChange(next: ChapterId): void {
-    const completedIndex =
-      next === "answer"
-        ? this.chapterOrder.length - 1
-        : this.chapterOrder.indexOf(next);
+    const isEndChapter = next === "answer" || next === "refusal";
+    const completedIndex = isEndChapter
+      ? this.chapterOrder.length - 1
+      : this.chapterOrder.indexOf(next);
 
     this.dom.progressItems.forEach((item, index) => {
       if (index < completedIndex) {
         item.dataset.state = "past";
       } else if (index === completedIndex) {
-        item.dataset.state = next === "answer" ? "past" : "current";
+        item.dataset.state = isEndChapter ? "past" : "current";
       } else {
         item.dataset.state = "future";
       }
@@ -51,17 +51,17 @@ export class ParagraphStatusObserver implements IChapterObserver {
   constructor(private readonly dom: BlocksDom) {}
 
   onChapterChange(next: ChapterId): void {
-    const currentIndex =
-      next === "answer"
-        ? paragraphIds.length - 1
-        : paragraphIds.indexOf(next as (typeof paragraphIds)[number]);
+    const isEndChapter = next === "answer" || next === "refusal";
+    const currentIndex = isEndChapter
+      ? paragraphIds.length - 1
+      : paragraphIds.indexOf(next as (typeof paragraphIds)[number]);
 
     paragraphIds.forEach((id, index) => {
       const block = this.dom.blocks.get(id);
       if (!block) return;
 
       let status = "future";
-      if (next === "final" || next === "answer") {
+      if (next === "final" || isEndChapter) {
         status = "past";
       } else if (currentIndex !== -1) {
         status = index < currentIndex ? "past" : index === currentIndex ? "current" : "future";
@@ -79,11 +79,18 @@ export class AnswerRevealObserver implements IChapterObserver {
   constructor(private readonly dom: BlocksDom) {}
 
   onChapterChange(next: ChapterId): void {
-    const block = this.dom.blocks.get("answer");
-    if (!block) return;
-    const shouldShow = next === "answer";
-    block.wrapper.dataset.open = String(shouldShow);
-    block.wrapper.setAttribute("aria-hidden", String(!shouldShow));
+    const answerBlock = this.dom.blocks.get("answer");
+    if (answerBlock) {
+      const shouldShow = next === "answer";
+      answerBlock.wrapper.dataset.open = String(shouldShow);
+      answerBlock.wrapper.setAttribute("aria-hidden", String(!shouldShow));
+    }
+    const refusalBlock = this.dom.blocks.get("refusal");
+    if (refusalBlock) {
+      const shouldShow = next === "refusal";
+      refusalBlock.wrapper.dataset.open = String(shouldShow);
+      refusalBlock.wrapper.setAttribute("aria-hidden", String(!shouldShow));
+    }
   }
 }
 

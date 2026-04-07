@@ -54,6 +54,7 @@ export interface OrbsDom {
 
 export interface ButtonsDom {
   yesButton: HTMLButtonElement;
+  noButton: HTMLButtonElement;
   replayButton: HTMLButtonElement;
 }
 

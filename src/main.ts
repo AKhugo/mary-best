@@ -10,6 +10,7 @@ import {
 } from "./chapter";
 import type { ChapterId } from "./story";
 import type { MotionHandle } from "./types";
+import gsap from "gsap";
 import "./styles/main.scss";
 
 // ─── Bootstrap ────────────────────────────────────────────────────────────────
@@ -59,6 +60,31 @@ function startOrbAnimations(): MotionHandle[] {
 
 let orbAnimations = startOrbAnimations();
 
+// ─── Text Animation ────────────────────────────────────────────────────────────
+
+function animateWords(blockWrapper: HTMLElement, dur: number): void {
+  const words = blockWrapper.querySelectorAll('.word');
+  if (!words.length) return;
+
+  if (reducedMotion) {
+    gsap.set(words, { y: 0, opacity: 1 });
+    return;
+  }
+
+  gsap.fromTo(words,
+    { y: 30, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      stagger: 0.07,
+      duration: 0.8,
+      ease: "power3.out",
+      delay: dur * 0.4,
+      overwrite: "auto"
+    }
+  );
+}
+
 // ─── Fullpage Navigator ────────────────────────────────────────────────────────
 
 const CHAPTER_ORDER: ChapterId[] = ["intro", "p1", "p2", "p3", "p4", "p5", "p6", "final"];
@@ -74,6 +100,8 @@ function initPositions(): void {
   });
   const answer = dom.blocks.get("answer");
   if (answer) answer.wrapper.style.transform = "translateY(100%)";
+  const refusal = dom.blocks.get("refusal");
+  if (refusal) refusal.wrapper.style.transform = "translateY(100%)";
 }
 
 function navigateTo(nextIndex: number): void {
@@ -102,6 +130,8 @@ function navigateTo(nextIndex: number): void {
 
   // Positionner la prochaine section de l'autre côté avant l'animation
   nextBlock.wrapper.style.transform = `translateY(${direction * 100}%)`;
+
+  animateWords(nextBlock.wrapper, dur);
 
   // Entrée section suivante
   animator.animateEl(
@@ -149,6 +179,27 @@ dom.yesButton.addEventListener("click", () => {
   CHAPTER_ORDER.push("answer");
   dom.page.dataset.answerOpen = "true";
   dom.yesButton.disabled = true;
+  dom.noButton.disabled = true;
+  dom.replayButton.disabled = true;
+
+  animator.animateEl(
+    dom.stageCard,
+    { scale: [1, 0.985, 1], y: [0, -6, 0] },
+    { duration: reducedMotion ? 0.01 : 0.95, ease: "easeOut" }
+  );
+
+  setTimeout(() => {
+    navigateTo(CHAPTER_ORDER.length - 1);
+  }, reducedMotion ? 0 : 250);
+});
+
+dom.noButton.addEventListener("click", () => {
+  if (answerOpen) return;
+  answerOpen = true;
+  CHAPTER_ORDER.push("refusal");
+  dom.page.dataset.answerOpen = "true";
+  dom.yesButton.disabled = true;
+  dom.noButton.disabled = true;
   dom.replayButton.disabled = true;
 
   animator.animateEl(
@@ -178,6 +229,7 @@ reducedMotionQuery.addEventListener("change", (e) => {
 initPositions();
 dom.blocks.get("intro")!.wrapper.classList.add("is-visible");
 chapterManager.apply("intro", true);
+animateWords(dom.blocks.get("intro")!.wrapper, 0);
 
 window.addEventListener("beforeunload", () => {
   cancelAnimationFrame(rafId);

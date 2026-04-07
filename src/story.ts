@@ -1,5 +1,5 @@
-export type ChapterId = "intro" | "p1" | "p2" | "p3" | "p4" | "p5" | "p6" | "final" | "answer";
-export type ScrollChapterId = Exclude<ChapterId, "answer">;
+export type ChapterId = "intro" | "p1" | "p2" | "p3" | "p4" | "p5" | "p6" | "final" | "answer" | "refusal";
+export type ScrollChapterId = Exclude<ChapterId, "answer" | "refusal">;
 
 export interface ChapterMeta {
   id: ScrollChapterId;
@@ -14,7 +14,10 @@ export interface StoryContent {
   finalQuestion: string;
   replayLabel: string;
   yesLabel: string;
+  noLabel: string;
   finalAnswer: string;
+  refusalLabel: string;
+  refusalAnswer: string;
 }
 
 export const storyContent: StoryContent = {
@@ -30,7 +33,10 @@ export const storyContent: StoryContent = {
   finalQuestion: "Et c'est pour ça que je te le demande avec tout mon cœur : est-ce que tu veux être ma petite amie ?",
   replayLabel: "Relire le message",
   yesLabel: "Oui",
-  finalAnswer: "Alors, vivons-le. Doucement, sincèrement, un jour à la fois."
+  noLabel: "Non",
+  finalAnswer: "Alors, vivons-le. Doucement, sincèrement, un jour à la fois.",
+  refusalLabel: "C'est compris.",
+  refusalAnswer: "Je respecte ta décision. Je prie que tu trouves quelqu'un qui reconnaitra ta valeur."
 };
 
 export const scrollChapters: readonly ChapterMeta[] = [
@@ -53,7 +59,8 @@ export const visibleBlockIds: Record<ChapterId, readonly ChapterId[]> = {
   p5:     ["p1", "p2", "p3", "p4", "p5"],
   p6:     ["p1", "p2", "p3", "p4", "p5", "p6"],
   final:  ["p1", "p2", "p3", "p4", "p5", "p6", "final"],
-  answer: ["answer"]
+  answer: ["answer"],
+  refusal: ["refusal"]
 };
 
 export const paragraphIds = ["p1", "p2", "p3", "p4", "p5", "p6"] as const;
@@ -62,4 +69,5 @@ export const paragraphIds = ["p1", "p2", "p3", "p4", "p5", "p6"] as const;
 export const blockAnimationDelays: Partial<Record<ChapterId, number>> = {
   final: 0.14,
   answer: 0.2,
+  refusal: 0.2,
 };
