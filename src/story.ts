@@ -23,14 +23,14 @@ export interface StoryContent {
 export const storyContent: StoryContent = {
   intro: "J'ai quelque chose de vrai à te dire",
   paragraphs: [
-    "Je veux d'abord m'excuser pour notre dernière discussion. Je n'ai pas su bien expliquer ce que je ressentais vraiment et j'ai laissé des questions compliquées gâcher quelque chose de simple. Je sais que ça t'a blessée et je suis vraiment désolé.",
-    "J'ai beaucoup réfléchi depuis. Et j'ai réalisé que j'étais en train de faire quelque chose de stupide — je me projetais trop loin, je pensais à demain, après-demain, dans dix ans. Je construisais des murs pour des problèmes qui n'existent que dans ma tête. Au lieu de simplement vivre ce qu'il y a maintenant avec toi.",
-    "Oui, on ne croit pas pareil. C'est vrai. Et oui, c'est un truc compliqué, je ne dis pas le contraire. Mais pourquoi faut qu'on en fasse une raison d'abandonner maintenant ? Pourquoi faut qu'on laisse ces questions nous détruire ce qu'on a en ce moment, ce qui est réel et beau ?",
-    "Je ne parle pas d'ignorer nos différences à jamais. Mais on peut les mettre de côté pour l'instant. On peut juste... être ensemble. Vivre ce moment sans se demander si c'est « compatible » ou si ça va marcher dans dix ans. Peut-être que ça va marcher, peut-être que non. Mais on ne le saura jamais si on ne l'essaie pas vraiment.",
-    "Ce que je sais, c'est ce que je ressens quand je suis avec toi, quand on se parle, quand je pense à toi. C'est réel. C'est fort. Et je ne veux pas laisser passer ça en restant paralysé par des doutes.",
-    "Je veux juste vivre ce qu'on ressent. Toi et moi. Maintenant. Avec sincérité. Sans me soucier de demain, sans me soucier de ce qui pourrait mal tourner. Juste... nous."
+    "Tu sais, même sans parler, on se comprend. Et c'est bizarre parce que je suis pas le mec qui parle beaucoup, mais avec toi c'est différent. C'est facile.",
+    "Tu dis que je suis ta safe place. Eh ben tu es mon truc, tu sais ? Pas juste ton corps qui m'énerve (bon, ça aussi hein), mais toi. Ton énergie, ta façon de penser, comment tu ris quand je fais mes blagues débiles. Comment tu me taquines et tu essaies de rester sérieuse mais tu cragues toujours.",
+    "J'aime ce qu'on a. Cette légèreté. Ces moments où on parle de rien et ça me remplit. Comme ce jour au bus pour Port-Bouët — juste nous deux, pas besoin de grand-chose. C'est ça qui compte.",
+    "Je sais que tu aimes te projeter et moi aussi en vrai, mais ce qui est cool c'est qu'on peut juste... être. Maintenant. Pas toujours penser à demain. Et je crois que c'est ça qui manquait avant.",
+    "Mais voilà, je vais te dire la vérité : dans ma tête, je vois toi et moi. Longtemps. Pas juste maintenant. Je veux que tu sois ma partenaire pour tout ça. Pour les blagues pourries, pour les trucs sérieux, pour les nuits coquines, pour les silences aussi.",
+    "Je t'aime, chékrèb"
   ],
-  finalQuestion: "Et c'est pour ça que je te le demande avec tout mon cœur : est-ce que tu veux être ma petite amie ?",
+  finalQuestion: "Et c'est pour ça que je te le demande avec tout mon cœur : puis-je être ton petit ami ?",
   replayLabel: "Relire le message",
   yesLabel: "Oui",
   noLabel: "Non",
@@ -41,12 +41,12 @@ export const storyContent: StoryContent = {
 
 export const scrollChapters: readonly ChapterMeta[] = [
   { id: "intro", label: "Ouverture",   step: "01", ghost: "J'ai quelque chose de vrai à te dire" },
-  { id: "p1",    label: "Fragment 01", step: "02", ghost: "Je suis vraiment désolé" },
-  { id: "p2",    label: "Fragment 02", step: "03", ghost: "Je construisais des murs qui n'existent pas" },
-  { id: "p3",    label: "Fragment 03", step: "04", ghost: "Ce qu'on a est réel et beau" },
-  { id: "p4",    label: "Fragment 04", step: "05", ghost: "Juste être ensemble" },
-  { id: "p5",    label: "Fragment 05", step: "06", ghost: "C'est réel. C'est fort." },
-  { id: "p6",    label: "Fragment 06", step: "07", ghost: "Juste... nous" },
+  { id: "p1",    label: "Fragment 01", step: "02", ghost: "C'est facile, avec toi" },
+  { id: "p2",    label: "Fragment 02", step: "03", ghost: "Tu es mon truc" },
+  { id: "p3",    label: "Fragment 03", step: "04", ghost: "Ce jour au bus pour Port-Bouët" },
+  { id: "p4",    label: "Fragment 04", step: "05", ghost: "On peut juste... être" },
+  { id: "p5",    label: "Fragment 05", step: "06", ghost: "Je te vois longtemps" },
+  { id: "p6",    label: "Fragment 06", step: "07", ghost: "Je t'aime, Ochékrébo" },
   { id: "final", label: "Maintenant",  step: "08", ghost: "La question qui reste" }
 ] as const;
 
