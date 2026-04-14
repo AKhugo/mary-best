@@ -8,6 +8,7 @@ import {
   ParagraphStatusObserver,
   AnswerRevealObserver,
 } from "./chapter";
+import { storyContent } from "./story";
 import type { ChapterId } from "./story";
 import type { MotionHandle } from "./types";
 import gsap from "gsap";
@@ -211,6 +212,18 @@ dom.noButton.addEventListener("click", () => {
   setTimeout(() => {
     navigateTo(CHAPTER_ORDER.length - 1);
   }, reducedMotion ? 0 : 250);
+});
+
+function openWhatsApp(phone: string, message: string): void {
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+}
+
+dom.whatsappYesButton.addEventListener("click", () => {
+  openWhatsApp(storyContent.notificationPhone, storyContent.whatsappYesMessage);
+});
+
+dom.whatsappNoButton.addEventListener("click", () => {
+  openWhatsApp(storyContent.notificationPhone, storyContent.whatsappNoMessage);
 });
 
 dom.replayButton.addEventListener("click", () => {

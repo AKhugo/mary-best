@@ -99,7 +99,10 @@ function createAnswerContent(): HTMLDivElement {
   const line = createElement("p", "story-answer__line", storyContent.finalAnswer);
   splitAndWrapText(label);
   splitAndWrapText(line);
-  inner.append(label, line);
+  const waBtn = createElement("button", "button button--whatsapp", storyContent.whatsappButtonLabel);
+  waBtn.type = "button";
+  waBtn.dataset.role = "whatsapp-yes";
+  inner.append(label, line, waBtn);
   return inner;
 }
 
@@ -109,7 +112,10 @@ function createRefusalContent(): HTMLDivElement {
   const line = createElement("p", "story-answer__line", storyContent.refusalAnswer);
   splitAndWrapText(label);
   splitAndWrapText(line);
-  inner.append(label, line);
+  const waBtn = createElement("button", "button button--whatsapp", storyContent.whatsappButtonLabel);
+  waBtn.type = "button";
+  waBtn.dataset.role = "whatsapp-no";
+  inner.append(label, line, waBtn);
   return inner;
 }
 
@@ -185,6 +191,8 @@ function buildContentStack(): {
   yesButton: HTMLButtonElement;
   noButton: HTMLButtonElement;
   replayButton: HTMLButtonElement;
+  whatsappYesButton: HTMLButtonElement;
+  whatsappNoButton: HTMLButtonElement;
 } {
   const stageCard = createElement("article", "stage-card");
   stageCard.setAttribute("aria-label", "Déclaration romantique");
@@ -214,10 +222,13 @@ function buildContentStack(): {
     refusalBlock.wrapper
   );
 
-  const yesButton    = finalBlock.inner.querySelector<HTMLButtonElement>("[data-role='yes']");
-  const noButton     = finalBlock.inner.querySelector<HTMLButtonElement>("[data-role='no']");
-  const replayButton = finalBlock.inner.querySelector<HTMLButtonElement>("[data-role='replay']");
-  if (!yesButton || !noButton || !replayButton) throw new Error("Missing CTA buttons in final chapter.");
+  const yesButton        = finalBlock.inner.querySelector<HTMLButtonElement>("[data-role='yes']");
+  const noButton         = finalBlock.inner.querySelector<HTMLButtonElement>("[data-role='no']");
+  const replayButton     = finalBlock.inner.querySelector<HTMLButtonElement>("[data-role='replay']");
+  const whatsappYesButton = answerBlock.inner.querySelector<HTMLButtonElement>("[data-role='whatsapp-yes']");
+  const whatsappNoButton  = refusalBlock.inner.querySelector<HTMLButtonElement>("[data-role='whatsapp-no']");
+  if (!yesButton || !noButton || !replayButton || !whatsappYesButton || !whatsappNoButton)
+    throw new Error("Missing CTA buttons.");
 
   const blocks = new Map<ChapterId, RevealBlock>([
     ["intro",   introBlock],
@@ -232,7 +243,7 @@ function buildContentStack(): {
     ["refusal", refusalBlock],
   ]);
 
-  return { stageCard, blocks, yesButton, noButton, replayButton };
+  return { stageCard, blocks, yesButton, noButton, replayButton, whatsappYesButton, whatsappNoButton };
 }
 
 // ─── App Compositor ───────────────────────────────────────────────────────────
@@ -247,7 +258,7 @@ export function buildApp(): AppDom {
   const { ambient, orbs } = buildAmbient();
   const { progress, progressItems } = buildProgress();
 
-  const { stageCard, blocks, yesButton, noButton, replayButton } = buildContentStack();
+  const { stageCard, blocks, yesButton, noButton, replayButton, whatsappYesButton, whatsappNoButton } = buildContentStack();
 
   page.append(topBar, scrollHint, ambient, progress, stageCard);
 
@@ -261,5 +272,7 @@ export function buildApp(): AppDom {
     yesButton,
     noButton,
     replayButton,
+    whatsappYesButton,
+    whatsappNoButton,
   };
 }

@@ -18,6 +18,10 @@ export interface StoryContent {
   finalAnswer: string;
   refusalLabel: string;
   refusalAnswer: string;
+  notificationPhone: string;
+  whatsappYesMessage: string;
+  whatsappNoMessage: string;
+  whatsappButtonLabel: string;
 }
 
 export const storyContent: StoryContent = {
@@ -36,7 +40,11 @@ export const storyContent: StoryContent = {
   noLabel: "Non",
   finalAnswer: "Alors, vivons-le. Doucement, sincèrement, un jour à la fois.",
   refusalLabel: "C'est compris.",
-  refusalAnswer: "Je respecte ta décision. Je prie que tu trouves quelqu'un qui reconnaitra ta valeur."
+  refusalAnswer: "Je respecte ta décision. Je prie que tu trouves quelqu'un qui reconnaitra ta valeur.",
+  notificationPhone: "2250777597197",
+  whatsappYesMessage: "J'ai dit Oui ❤️, je t'aime mon rouuuaaaa",
+  whatsappNoMessage: "J'ai dit Non, désolé.",
+  whatsappButtonLabel: "Envoyer ma réponse sur WhatsApp",
 };
 
 export const scrollChapters: readonly ChapterMeta[] = [

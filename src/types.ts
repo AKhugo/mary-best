@@ -56,6 +56,8 @@ export interface ButtonsDom {
   yesButton: HTMLButtonElement;
   noButton: HTMLButtonElement;
   replayButton: HTMLButtonElement;
+  whatsappYesButton: HTMLButtonElement;
+  whatsappNoButton: HTMLButtonElement;
 }
 
 // Full composed interface for app initialization
